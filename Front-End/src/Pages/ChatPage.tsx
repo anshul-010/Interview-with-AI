@@ -86,7 +86,6 @@ export const ChatPage = () => {
   }, [interviewType]);
 
   // handle Start and Next Question Button
-
   const requestOptions = {
     method: "POST",
     headers: {
@@ -95,39 +94,37 @@ export const ChatPage = () => {
     },
     body: JSON.stringify({ subject: interviewType }),
   };
-
   const handleChatBtn = () => {
     setLoading(true);
     fetch(`${API_Url}/interview/questions`, requestOptions)
-  .then((response) => {
-    // console.log(response)
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data)
-    let firstQuestion = {
-      content: data.question.choices[0].message.content,
-      type: "Response",
-    };
-    setResponseContent((prev:any) => [...prev, firstQuestion]);
-    setQuestion(firstQuestion.content);
-    setBtnText("Next Question");
-    setLoading(false);
-  })
-  .catch((error) => {
-    console.error("There was a problem with the fetch operation:", error);
-    toast({
-      title: "Something Went Wrong",
-      status: "error",
-      position: "top-right",
-      duration: 2000,
-    });
-    setLoading(false);
-  });
-
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        let firstQuestion = {
+          content: data.question.choices[0].message.content,
+          type: "Response",
+        };
+        setResponseContent((prev: any) => [...prev, firstQuestion]);
+        setQuestion(firstQuestion.content);
+        setBtnText("Next Question");
+        resetTranscript();
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+        toast({
+          title: "Something Went Wrong",
+          status: "error",
+          position: "top-right",
+          duration: 2000,
+        });
+        setLoading(false);
+      });
 
     // setLoading(true);
     // axios({
@@ -148,6 +145,7 @@ export const ChatPage = () => {
     //     setResponseContent((prev: any) => [...prev, firstQuestion]);
     //     setQuestion(firstQuestion?.content);
     //     setBtnText("Next Question");
+    // resetTranscript()
     //     setLoading(false);
     //   })
     //   .catch((err) => {
@@ -218,6 +216,7 @@ export const ChatPage = () => {
         };
         setResponseContent((prev: any) => [...prev, responseFeedback]);
         setLoading(false);
+        resetTranscript();
       })
       .catch((err) => {
         console.log(err);
