@@ -50,7 +50,7 @@ export const Login = () => {
 
   return (
     <div 
-    className="  rounded-lg max-w-xl m-auto mt-32 h-100 p-6"
+    className="  rounded-lg max-w-xl m-auto mt-32 h-100 p-6 backdrop-blur-md"
       style={{boxShadow: "rgba(160, 150, 177, 0.489) 0px 3px 6px, rgba(160, 150, 177, 0.4) 0px 7px 13px -3px, rgba(160, 150, 177, 0.4) 0px -1px 5px inset"}}
     >
     <h2 className="font-medium text-3xl text-white">Login</h2>
