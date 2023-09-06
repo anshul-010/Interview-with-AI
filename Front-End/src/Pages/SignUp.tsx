@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useContext } from "react";
 import { Context } from "../Data/Context";
-import { useToast } from '@chakra-ui/react'
-
+import { useToast } from "@chakra-ui/react";
 
 let initialData = {
   name: "",
@@ -11,10 +10,9 @@ let initialData = {
 };
 
 export const SignUp = () => {
-  const { setShowSignUpBox } = useContext(Context)
+  const { setShowSignUpBox } = useContext(Context);
   const [inputData, setInputData] = useState(initialData);
-  const toast = useToast()
-
+  const toast = useToast();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -46,25 +44,28 @@ export const SignUp = () => {
       .then((response) => response.json())
       .then((data) => {
         setInputData(initialData);
-        setShowSignUpBox(false)
+        setShowSignUpBox(false);
         toast({
-          title: 'Registered Successfully',
-          status: 'success',
-          position:"top",
+          title: "Registered Successfully",
+          status: "success",
+          position: "top",
           duration: 1000,
           isClosable: true,
-        })
+        });
         console.log(data);
       })
       .catch((error) => {
-        console.error("Error:", error)
-      })
+        console.error("Error:", error);
+      });
   }
 
   return (
-    <div 
-      className="  rounded-lg max-w-xl m-auto mt-32 h-100 p-6"
-      style={{boxShadow: "rgba(160, 150, 177, 0.489) 0px 3px 6px, rgba(160, 150, 177, 0.4) 0px 7px 13px -3px, rgba(160, 150, 177, 0.4) 0px -1px 5px inset"}}
+    <div
+      className="  rounded-lg max-w-xl m-auto mt-32 h-100 p-6 backdrop-blur-md"
+      style={{
+        boxShadow:
+          "rgba(160, 150, 177, 0.489) 0px 3px 6px, rgba(160, 150, 177, 0.4) 0px 7px 13px -3px, rgba(160, 150, 177, 0.4) 0px -1px 5px inset",
+      }}
     >
       <h2 className="font-medium text-3xl text-white">Sign Up</h2>
       <div>
@@ -106,10 +107,7 @@ export const SignUp = () => {
           />
           <br />
           <br />
-          <button 
-            className="border-2 p-2 pl-10 pr-10 text-white font-medium rounded-md bg-purple-700  hover:bg-gradient-to-r from-purple-600 to-purple-900  "
-            
-          >
+          <button className="border-2 p-2 pl-10 pr-10 text-white font-medium rounded-md bg-purple-700  hover:bg-gradient-to-r from-purple-600 to-purple-900  ">
             Register
           </button>
         </form>
